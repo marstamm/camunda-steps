@@ -10,6 +10,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
+		"@rollup/plugin-commonjs": "^25.0.3",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"eslint": "^8.28.0",
@@ -20,5 +21,9 @@
 		"svelte": "^4.0.5",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"camunda-bpmn-js": "^3.0.0",
+		"vite-plugin-commonjs": "^0.8.2"
+	}
 }
