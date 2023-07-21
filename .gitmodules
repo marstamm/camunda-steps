@@ -1,0 +1,3 @@
+[submodule "connectors-bundle"]
+	path = connectors-bundle
+	url = git@github.com:camunda/connectors-bundle.git
