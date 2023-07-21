@@ -1,4 +1,4 @@
-[
+export default [
   {
     "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
     "name": "Asana connector",
