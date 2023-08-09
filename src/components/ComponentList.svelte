@@ -1,4 +1,5 @@
 <script>
+  import AddStep from './AddStep/AddStep.svelte';
   import { stepList, selected, templates } from './stores';
   import { flip } from 'svelte/animate';
 
@@ -10,7 +11,6 @@
   });
 
   const handleSelect = (step) => {
-    console.log(step);
     selected.update(() => step);
   };
 
@@ -19,7 +19,6 @@
   });
 
   const handleDragstart = (event, i) => {
-    console.log(event, i);
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.dropEffect = 'move';
     const start = i;
@@ -31,8 +30,6 @@
     const start = parseInt(event.dataTransfer.getData('text/plain'));
     const newTracklist = steps;
 
-    console.log(newTracklist[start], start, target, event.dataTransfer.getData('text/plain'));
-
     if (start < target) {
       newTracklist.splice(target + 1, 0, newTracklist[start]);
       newTracklist.splice(start, 1);
@@ -43,21 +40,12 @@
 
     stepList.set(newTracklist);
     hovering = null;
-    // list = newTracklist;
   };
 
   let hovering;
-
-  console.log(hovering);
 </script>
 
-<!-- <ul>
-  <li>
-    <button on:click={handleSelect(step)}> {step.name} </button>
-  </li>
-</ul> -->
-
-<div class="ui vertical steps">
+<div class="ui fluid vertical steps">
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   {#each steps as step, i (step.id)}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -86,34 +74,11 @@
       </div>
     </div>
   {/each}
+  <AddStep />
 </div>
-
-<!-- <div class="completed step">
-    <i class="truck icon"></i>
-    <div class="content">
-      <div class="title">Shipping</div>
-      <div class="description">Choose your shipping options</div>
-    </div>
-  </div>
-  <div class="completed step">
-    <i class="credit card icon"></i>
-    <div class="content">
-      <div class="title">Billing</div>
-      <div class="description">Enter billing information</div>
-    </div>
-  </div>
-  <div class="active step">
-    <i class="info icon"></i>
-    <div class="content">
-      <div class="title">Confirm Order</div>
-      <div class="description">Verify order details</div>
-    </div>
-  </div>
-</div> -->
 
 <style>
   .step.is-active {
     background-color: #aaa;
-    /* color: #fff; */
   }
 </style>
