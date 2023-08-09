@@ -47,7 +47,7 @@
   let hovering;
 </script>
 
-<div class="ui fluid vertical steps">
+<div class="ComponentList ui fluid vertical steps">
   <div class="step">
     <i class="icon">
       <i class="play icon" />
@@ -83,6 +83,14 @@
 
 <style>
   .step.is-active {
-    background-color: #aaa;
+    background-color: #aaa !important;
+  }
+
+  :global(.ComponentList) {
+    --background-color: white;
+  }
+
+  .step {
+    background-color: var(--background-color);
   }
 </style>
