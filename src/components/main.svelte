@@ -12,7 +12,6 @@
   </div>
   <div class="ui ten wide column">
     <Preview />
-    <Export />
   </div>
 </div>
 <!-- </div> -->

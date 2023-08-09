@@ -1,5 +1,7 @@
 <script>
   import AddStep from './AddStep/AddStep.svelte';
+  import Export from './Export.svelte';
+  import Step from './Step.svelte';
   import { stepList, selected, templates } from './stores';
   import { flip } from 'svelte/animate';
 
@@ -46,6 +48,15 @@
 </script>
 
 <div class="ui fluid vertical steps">
+  <div class="step">
+    <i class="icon">
+      <i class="play icon" />
+    </i>
+    <div class="content">
+      <div class="title">Process Start</div>
+      <div class="description">Click to modify start trigger</div>
+    </div>
+  </div>
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   {#each steps as step, i (step.id)}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -61,20 +72,13 @@
       on:dragenter={() => (hovering = i)}
       class:is-active={hovering === i}
     >
-      <i class="icon">
-        {#if step.template.icon}
-          <img style="height: 1em;" src={step.template.icon.contents} alt="icon" />
-        {:else}
-          <i class="question circle outline icon" />
-        {/if}
-      </i>
-      <div class="content">
-        <div class="title">{step.name}</div>
-        <div class="description">{step.template.description}</div>
-      </div>
+      <Step {step} />
     </div>
   {/each}
-  <AddStep />
+  <div class="ui buttons">
+    <AddStep />
+    <Export />
+  </div>
 </div>
 
 <style>

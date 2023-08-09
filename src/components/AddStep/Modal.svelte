@@ -26,6 +26,7 @@
   dialog {
     width: 80vw;
     height: 80vh;
+    font-size: 14px;
     border-radius: 0.2em;
     border: none;
     padding: 0;

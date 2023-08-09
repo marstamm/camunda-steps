@@ -15,15 +15,28 @@
 
   const handleEject = async () => {
     const modeling = modeler.get('modeling');
+    const elementFactory = modeler.get('elementFactory');
+    const canvas = modeler.get('canvas');
 
     const elements = stepList.map((step) => {
-      return modeler.get('elementRegistry').get(step.id);
+      const element = modeler.get('elementRegistry').get(step.id);
+      modeling.updateLabel(element, step.name);
+      return element;
     });
 
-    if (isStartEvent[0]) {
-      // Create non-start event
-      console.log('isStartEvent');
+    if (!isStartEvent[0]) {
+      const startEvent = elementFactory.createShape({ type: 'bpmn:StartEvent' });
+      Object.assign(startEvent, { x: 0, y: 0, width: 100, height: 100 });
+      canvas.addShape(startEvent);
+      elements.unshift(startEvent);
     }
+
+    const endEvent = elementFactory.createShape({ type: 'bpmn:EndEvent' });
+    Object.assign(endEvent, { x: 0, y: 0, width: 100, height: 100 });
+    canvas.addShape(endEvent);
+    elements.push(endEvent);
+
+    console.log(elements);
 
     const connections = [];
     for (let i = 0; i < elements.length; i++) {
@@ -33,10 +46,8 @@
     }
 
     const { xml } = await modeler.saveXML();
-    console.log(xml);
 
     const layoutedDiagramXML = await layoutProcess(xml);
-    console.log(layoutedDiagramXML);
     modeler.importXML(layoutedDiagramXML);
     // stepListStore.set(steps);
   };
@@ -46,10 +57,15 @@
   }
 </script>
 
-<button class="foo bar" on:click={handleEject}>Eject</button>
+<button class="ui labeled icon button" on:click={handleEject}>
+  <i class="cloud upload icon" />
+  Deploy
+</button>
+
+<!-- <button class="foo bar" on:click={handleEject}>Eject</button> -->
 
 <style>
-  .foo {
+  /* .foo {
     background-color: red;
-  }
+  } */
 </style>
