@@ -4,6 +4,10 @@
   import defaultDiagram from '../util/defaultDiagram';
   import { onMount } from 'svelte';
   import { templates, stepList, selected, modeler as modelerStore } from './stores';
+  import { FormHelper } from './helpers/FormHelper.mjs';
+  import formDataProvider from './helpers/formDataProvider';
+  import FormEditor from './FormEditor.svelte';
+  import { is } from './helpers/modelUtil';
 
   let modelerContainer, propertiesContainer;
   let modeler;
@@ -12,8 +16,9 @@
     const { default: BpmnModeler } = await import(
       'camunda-bpmn-js/dist/camunda-cloud-modeler.development.js'
     );
+    const { getSchemaVariables } = await import('@bpmn-io/form-js-viewer');
 
-    modeler = new BpmnModeler({
+    window.modeler = modeler = new BpmnModeler({
       container: modelerContainer,
       keyboard: {
         bindTo: document
@@ -21,7 +26,8 @@
       propertiesPanel: {
         parent: propertiesContainer
       },
-      elementTemplates: templates
+      elementTemplates: templates,
+      additionalModules: [formDataProvider(getSchemaVariables)]
     });
 
     modelerStore.set(modeler);
@@ -31,9 +37,16 @@
 
   stepList.subscribeToChanges((action, step) => {
     const canvas = modeler.get('canvas');
-
+    const modeling = modeler.get('modeling');
     if (action === 'add') {
-      const element = modeler.get('elementTemplates').createElement(step.template);
+      let element;
+
+      if (step.template.id === 'userTask') {
+        element = modeler.get('elementFactory').createShape({ type: 'bpmn:UserTask' });
+      } else {
+        element = modeler.get('elementTemplates').createElement(step.template);
+      }
+
       step.elements = {
         all: [element],
         main: element,
@@ -41,13 +54,26 @@
         out: element
       };
       step.id = element.id;
-      Object.assign(element, { x: 0, y: 0, width: 100, height: 100 });
-      canvas.addShape(element);
+      // Object.assign();
+      modeling.createShape(
+        element,
+        { x: 0, y: 0, width: 100, height: 100 },
+        canvas.getRootElement()
+      );
+
+      if (step.template.id === 'userTask') {
+        const injector = modeler.get('injector');
+        const formHelper = injector.invoke(FormHelper);
+
+        formHelper.resetForm(element);
+        formHelper.setUserTaskForm(element, '');
+      }
     }
 
     if (action === 'remove') {
       const element = modeler.get('elementRegistry').get(step.id);
-      canvas.removeShape(element);
+      console.log(element);
+      modeling.removeShape(element);
     }
   });
 
@@ -74,9 +100,16 @@
     </div>
   </h2>
 </div>
-<div class="previewModeler">
-  <div bind:this={modelerContainer} class="modeler-container hidden" />
-  <div bind:this={propertiesContainer} class:hidden={!selectedElement} />
+<div>
+  <div bind:this={modelerContainer} class="modeler-container" />
+  <div
+    bind:this={propertiesContainer}
+    class="previewModeler"
+    class:hidden={!selectedElement || is(selectedElement, 'bpmn:UserTask')}
+  />
+  {#if is(selectedElement, 'bpmn:UserTask')}
+    <FormEditor element={selectedElement} {modeler} />
+  {/if}
 </div>
 
 <style>

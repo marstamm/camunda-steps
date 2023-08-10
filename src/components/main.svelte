@@ -18,10 +18,10 @@
   <FullScreenModeler />
 {:else}
   <div class="main ui two column grid">
-    <div class="ui six wide column">
+    <div class="ui four wide column">
       <ComponentList />
     </div>
-    <div class="ui ten wide column" style="overflow: auto;">
+    <div class="ui twelve wide column" style="overflow: auto;">
       <Preview />
     </div>
   </div>

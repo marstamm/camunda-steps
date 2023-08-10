@@ -23,8 +23,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@bpmn-io/form-js": "^1.2.0",
+		"@bpmn-io/variable-resolver": "^1.1.0",
 		"bpmn-auto-layout": "^0.4.0",
 		"camunda-bpmn-js": "^3.0.0",
+		"form-js": "^4.2.1",
+		"ids": "^1.0.5",
+		"min-dash": "^4.1.1",
 		"vite-plugin-commonjs": "^0.8.2"
 	}
 }
