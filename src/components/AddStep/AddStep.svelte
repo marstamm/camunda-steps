@@ -8,7 +8,7 @@
   let showModal = false;
 
   const handleAddStep = (template) => {
-    const item = { id: crypto.randomUUID(), template, name: template.name };
+    const item = { id: window.crypto.randomUUID(), template, name: template.name };
     stepList.add(item);
     selected.set(item);
     showModal = false;
