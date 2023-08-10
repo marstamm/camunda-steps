@@ -65,7 +65,7 @@
   });
 </script>
 
-<!-- <div class="placeholder" class:hidden={!!selectedElement}>
+<div class="placeholder" class:hidden={!!selectedElement}>
   <h2 class="center ui centered icon header">
     <i class="settings icon" />
     <div class="content">
@@ -73,16 +73,25 @@
       <div class="sub header">Select or add steps to the workflow</div>
     </div>
   </h2>
-</div> -->
-<div bind:this={modelerContainer} class="modeler-container hidden" />
-<div bind:this={propertiesContainer} class:hidden={!selectedElement} />
+</div>
+<div class="previewModeler">
+  <div bind:this={modelerContainer} class="modeler-container hidden" />
+  <div bind:this={propertiesContainer} class:hidden={!selectedElement} />
+</div>
 
 <style>
-  :global(.bio-properties-panel-group[data-group-id='group-ElementTemplates__Template']) {
+  :global(
+      .previewModeler .bio-properties-panel-group[data-group-id='group-ElementTemplates__Template']
+    ),
+  :global(.previewModeler .bio-properties-panel-group[data-group-id='group-documentation']),
+  :global(
+      .previewModeler .bio-properties-panel-group[data-group-id='group-Zeebe__ExtensionProperties']
+    ),
+  :global(.previewModeler .bio-properties-panel-group[data-group-id='group-additionalDataGroup']) {
     display: none !important;
   }
 
-  :global(.bio-properties-panel-group[data-group-id='group-general']) {
+  :global(.previewModeler .bio-properties-panel-group[data-group-id='group-general']) {
     display: none !important;
   }
 

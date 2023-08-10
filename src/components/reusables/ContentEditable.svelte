@@ -1,14 +1,19 @@
 <script>
   import { clickOutside } from './clickOutside.js';
 
-  export let onEdited;
+  export let onEdited = () => {};
+  let editing = false;
 
   const handleDblClick = (event) => {
     let div = event.target;
+    editing = true;
     div.contentEditable = true;
   };
 
   const handleClickOutside = (event) => {
+    if (!editing) return;
+    editing = false;
+
     let div = event.target;
     div.contentEditable = false;
     onEdited(div.innerText);
@@ -16,9 +21,12 @@
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
+      editing = false;
+
       let div = event.target;
       div.contentEditable = false;
       onEdited(div.innerText);
+      event.preventDefault();
     }
   };
 </script>

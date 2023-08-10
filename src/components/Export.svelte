@@ -1,7 +1,13 @@
 <script>
   import { layoutProcess } from 'bpmn-auto-layout';
 
-  import { stepList as stepListStore, modeler as modelerStore } from './stores';
+  import {
+    stepList as stepListStore,
+    modeler as modelerStore,
+    ejected,
+    ejectedXML
+  } from './stores';
+  import Modal from './AddStep/Modal.svelte';
 
   let stepList, modeler;
 
@@ -14,6 +20,7 @@
   });
 
   const handleEject = async () => {
+    showModal = false;
     const modeling = modeler.get('modeling');
     const elementFactory = modeler.get('elementFactory');
     const canvas = modeler.get('canvas');
@@ -53,17 +60,39 @@
     modeler.importXML(layoutedDiagramXML);
     console.log(layoutedDiagramXML);
     // stepListStore.set(steps);
+    ejectedXML.set(layoutedDiagramXML);
+    ejected.set(true);
   };
 
   function isStartEvent(element) {
     return is(element, 'bpmn:StartEvent');
   }
+
+  let showModal;
+  const confirmEject = () => {
+    showModal = true;
+    console.log('showModal');
+    // handleEject()
+  };
 </script>
 
-<button class="ui labeled icon button" on:click={handleEject}>
+<button class="ui labeled icon button" on:click={confirmEject}>
   <i class="cloud upload icon" />
   Deploy
 </button>
+
+<Modal bind:showModal>
+  <div class="ui negative message">
+    <div class="header">This action cannot be undone</div>
+    <p>
+      Ejecting this Workflow will generate a BPMN file. You not be able to return to the list view.
+    </p>
+  </div>
+  <div class="ui buttons" slot="buttons">
+    <button class="ui button" on:click={() => (showModal = false)}>Cancel</button>
+    <button class="ui negative button" on:click={handleEject}>Eject</button>
+  </div>
+</Modal>
 
 <!-- <button class="foo bar" on:click={handleEject}>Eject</button> -->
 

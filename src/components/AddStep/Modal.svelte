@@ -18,14 +18,17 @@
     <slot />
     <hr />
     <!-- svelte-ignore a11y-autofocus -->
-    <button class="ui button" on:click={() => dialog.close()}>Cancel</button>
+    <slot name="buttons">
+      <button class="ui button" on:click={() => dialog.close()}>Cancel</button>
+    </slot>
   </div>
 </dialog>
 
 <style>
   dialog {
-    width: 80vw;
-    height: 80vh;
+    max-width: 90vw;
+    max-height: 90vh;
+
     font-size: 14px;
     border-radius: 0.2em;
     border: none;

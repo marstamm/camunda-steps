@@ -42,3 +42,6 @@ export const templates = allTemplates;
 export const stepList = createStepList();
 export const selected = writable(null);
 export const modeler = writable(null);
+
+export const ejected = writable(false);
+export const ejectedXML = writable(null);

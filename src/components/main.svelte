@@ -2,18 +2,30 @@
   import AddStep from './AddStep/AddStep.svelte';
   import ComponentList from './ComponentList.svelte';
   import Export from './Export.svelte';
+  import FullScreenModeler from './FullScreenModeler.svelte';
   import Preview from './Preview.svelte';
+  import { ejected } from './stores';
+
+  let fullScreen = false;
+
+  ejected.subscribe((value) => {
+    fullScreen = value;
+  });
 </script>
 
 <!-- <div class="ui segment"> -->
-<div class="main ui two column grid">
-  <div class="ui six wide column">
-    <ComponentList />
+{#if fullScreen}
+  <FullScreenModeler />
+{:else}
+  <div class="main ui two column grid">
+    <div class="ui six wide column">
+      <ComponentList />
+    </div>
+    <div class="ui ten wide column" style="overflow: auto;">
+      <Preview />
+    </div>
   </div>
-  <div class="ui ten wide column" style="overflow: auto;">
-    <Preview />
-  </div>
-</div>
+{/if}
 
 <!-- </div> -->
 

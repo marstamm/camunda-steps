@@ -26,30 +26,45 @@
   };
 </script>
 
-<div class="ui grid">
-  <div class="sixteen wide column">
-    <div class="ui input" style="width: 100%;">
-      <input autofocus type="text" placeholder="Search..." value={search} on:input={updateFilter} />
+<div class="modal-content">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="ui input" style="width: 100%;">
+        <input
+          autofocus
+          type="text"
+          placeholder="Search..."
+          value={search}
+          on:input={updateFilter}
+        />
+      </div>
     </div>
-  </div>
-  {#each filteredTemplates as template, i}
-    <div class="ui four wide column">
-      <div class="ui cards">
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="card" on:click={() => handleSelect(template)}>
-          <div class="content">
-            {#if template.icon}
-              <img class="right floated mini ui image" src={template.icon.contents} alt="icon" />
-            {:else}
-              <i class="question circle outline icon" />
-            {/if}
+    {#each filteredTemplates as template, i}
+      <div class="ui four wide column">
+        <div class="ui cards">
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-static-element-interactions -->
+          <div class="card" on:click={() => handleSelect(template)}>
+            <div class="content">
+              {#if template.icon}
+                <img class="right floated mini ui image" src={template.icon.contents} alt="icon" />
+              {:else}
+                <i class="question circle outline icon" />
+              {/if}
 
-            <div class="header">{template.name}</div>
-            <div class="meta">{template.description}</div>
+              <div class="header">{template.name}</div>
+              <div class="meta">{template.description}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  {/each}
+    {/each}
+  </div>
 </div>
+
+<style>
+  .modal-content {
+    width: 80vw;
+    min-height: 80vh;
+  }
+</style>

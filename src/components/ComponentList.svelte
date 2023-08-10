@@ -2,6 +2,7 @@
   import AddStep from './AddStep/AddStep.svelte';
   import Export from './Export.svelte';
   import Step from './Step.svelte';
+  import ContentEditable from './reusables/ContentEditable.svelte';
   import { stepList, selected, templates } from './stores';
   import { flip } from 'svelte/animate';
 
@@ -53,8 +54,8 @@
       <i class="play icon" />
     </i>
     <div class="content">
-      <div class="title">Process Start</div>
-      <div class="description">Click to modify start trigger</div>
+      <ContentEditable class="title">Process Start</ContentEditable>
+      <div class="description">This Process is started manually</div>
     </div>
   </div>
   <!-- svelte-ignore a11y-no-static-element-interactions -->
