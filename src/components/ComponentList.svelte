@@ -49,6 +49,13 @@
 </script>
 
 <div class="ComponentList ui fluid vertical steps">
+  {#if steps.length > 0}
+    <div class="ui buttons">
+      <Export />
+      <!-- <Export /> -->
+    </div>
+  {/if}
+
   <div class="step">
     <i class="icon">
       <i class="play icon" />
@@ -78,7 +85,7 @@
   {/each}
   <div class="ui buttons">
     <AddStep />
-    <Export />
+    <!-- <Export /> -->
   </div>
 </div>
 

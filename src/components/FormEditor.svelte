@@ -51,3 +51,10 @@
 </script>
 
 <div bind:this={formContainer} class="form-container" />
+
+<style>
+  .form-container {
+    height: 100%;
+    width: 100%;
+  }
+</style>

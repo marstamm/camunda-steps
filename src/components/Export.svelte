@@ -76,9 +76,14 @@
   };
 </script>
 
-<button class="ui labeled icon button" on:click={confirmEject}>
+<button class="ui simple dropdown labeled icon button">
   <i class="cloud upload icon" />
-  Deploy
+  Publish
+
+  <div class="menu">
+    <div class="item">Deploy to zeebe</div>
+    <div class="item" on:click={confirmEject}>Eject Process</div>
+  </div>
 </button>
 
 <Modal bind:showModal>
@@ -100,4 +105,7 @@
   /* .foo {
     background-color: red;
   } */
+  .simple.dropdown {
+    text-align: center;
+  }
 </style>

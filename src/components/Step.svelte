@@ -66,8 +66,14 @@
   {/if}
 </i>
 <div class="content">
+  <ContentEditable class="title" onEdited={(name) => (step.name = name)}>
+    {step.name}
+  </ContentEditable>
+  <ContentEditable class="description" onEdited={(description) => (step.description = description)}>
+    {step.description || step.template.description}
+  </ContentEditable>
   <div class="edit float right">
-    <button class="ui button simple dropdown item left">
+    <button class="ui simple dropdown item left">
       <i class="icon wrench" />
       <div class="menu">
         <div class="item">Add Parrallel steps</div>
@@ -77,17 +83,13 @@
       </div>
     </button>
   </div>
-
-  <ContentEditable class="title" onEdited={(name) => (step.name = name)}>
-    {step.name}
-  </ContentEditable>
-  <ContentEditable class="description" onEdited={(description) => (step.description = description)}>
-    {step.description || step.template.description}
-  </ContentEditable>
 </div>
 
 <style>
   .float.right {
+    position: absolute;
+    right: 5px;
+    top: 5px;
     float: right;
   }
   .content {

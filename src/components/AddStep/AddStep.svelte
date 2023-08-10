@@ -1,6 +1,6 @@
 <script>
   import Modal from './Modal.svelte';
-  import { templates, stepList } from '../stores';
+  import { templates, stepList, selected } from '../stores';
   import SearchableList from './SearchableList.svelte';
 
   let select;
@@ -10,6 +10,7 @@
   const handleAddStep = (template) => {
     const item = { id: crypto.randomUUID(), template, name: template.name };
     stepList.add(item);
+    selected.set(item);
     showModal = false;
   };
 </script>

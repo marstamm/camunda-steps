@@ -91,17 +91,17 @@
   });
 </script>
 
-<div class="placeholder" class:hidden={!!selectedElement}>
-  <h2 class="center ui centered icon header">
-    <i class="settings icon" />
-    <div class="content">
-      Nothing to show
-      <div class="sub header">Select or add steps to the workflow</div>
-    </div>
-  </h2>
-</div>
-<div>
-  <div bind:this={modelerContainer} class="modeler-container" />
+<div style="height: 100%">
+  <div class="placeholder" class:hidden={!!selectedElement}>
+    <h2 class="center ui centered icon header">
+      <i class="settings icon" />
+      <div class="content">
+        Nothing to show
+        <div class="sub header">Select or add steps to the workflow</div>
+      </div>
+    </h2>
+  </div>
+  <div bind:this={modelerContainer} class="modeler-container hidden" />
   <div
     bind:this={propertiesContainer}
     class="previewModeler"
