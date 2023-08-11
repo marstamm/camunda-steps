@@ -40,21 +40,18 @@
       </div>
     </div>
     {#each filteredTemplates as template, i}
-      <div class="ui four wide column">
-        <div class="ui cards">
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
-          <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div class="card" on:click={() => handleSelect(template)}>
-            <div class="content">
-              {#if template.icon}
-                <img class="right floated mini ui image" src={template.icon.contents} alt="icon" />
-              {:else}
-                <i class="question circle outline icon" />
-              {/if}
-
-              <div class="header">{template.name}</div>
-              <div class="meta">{template.description}</div>
-            </div>
+      <div class="ui sixteen wide column">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="ui segment" on:click={() => handleSelect(template)}>
+          {#if template.icon}
+            <img class="left floated mini ui image" src={template.icon.contents} alt="icon" />
+          {:else}
+            <i class="question circle outline icon" />
+          {/if}
+          <div class="content">
+            <h4 class="ui header">{template.name}</h4>
+            <div class="meta">{template.description}</div>
           </div>
         </div>
       </div>
@@ -66,5 +63,9 @@
   .modal-content {
     width: 80vw;
     min-height: 80vh;
+  }
+
+  .mini.ui.image {
+    margin-top: 0.5em;
   }
 </style>

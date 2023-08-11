@@ -76,9 +76,9 @@
     <button class="ui simple dropdown item left">
       <i class="icon wrench" />
       <div class="menu">
-        <div class="item">Add Parrallel steps</div>
+        <div class="item">Create Parallel Group</div>
         <div class="item" on:click={toggleOptional}>Make Optional</div>
-        <div class="item">Group</div>
+        <div class="item">Make non-blocking</div>
         <div class="item" on:click={remove}>Delete step</div>
       </div>
     </button>
